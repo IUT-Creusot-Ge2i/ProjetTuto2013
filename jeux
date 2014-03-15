@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cstdlib>
+#include <conio.h>
+
+using namespace std;
+
+#define NROW 11
+#define NCOL 21
+
+void Affiche(char T[][NCOL])
+{
+    //on efface la console
+    system("cls");
+
+    //on affiche tout le tableau
+    for(int x = 0; x < NROW; x++){
+        for(int y = 0; y < NCOL; y++)
+            cout << T[x][y];
+        cout << endl;
+    }
+}
+
+int main(int argc, char**argv){
+
+    //allocation statique d'une matrice de caractères
+    char T[NROW][NCOL];
+
+    //on remplit avec 'O' partout
+    //une instruction par niveau de boucle --> pas besoin de { }
+    for (int i=0; i<NROW; i++)
+        for (int j=0; j<NCOL; j++)
+            T[i][j] ='O';
+
+    //initialisation position et valeur dans le tableau
+    int row = 5, col=10;
+    T[row][col] = 1;
+
+    //on affiche une première fois
+    Affiche (T);
+
+    //on récupère la valeur unicode de la touche pressée tant qu'on n'apppuie pas sur ENTREE
+    int touche = -1;
+    while (touche != 13)    {
+
+        touche = getch();
+        //cout << touche <<endl;
+        //system("pause");
+        //préférer la structure switch si on a plus de 3 cas
+
+        switch (touche) {
+        case 75 : { // Appui sur la flèche gauche
+            T[ row  ][ col-1 ] = 1;
+            T[ row  ][ col ] = 'O';
+            col--; // source de bug en cas de dépassement
+            } break;
+        case 77 : { // Appui sur la flèche droite
+            T[ row  ][ col+1 ] = 1;
+            T[ row  ][ col ] = 'O';
+            col ++; // source de bug en cas de dépassement
+           }break;
+
+        case 72 : { //Appui sur la flèche haut
+            T[ row - 1  ][ col ] = 1;
+            T[ row  ][ col ] = 'O';
+            row--;// source de bug en cas de dépassement
+            } break;
+        case 80 :{ //Appui sur la flèche du bas
+            T[ row + 1  ][ col ] = 1;
+            T[ row  ][ col ] = 'O';
+            row++;// source de bug en cas de dépassement
+            }break;
+
+        }// fin switch
+
+        Affiche(T);
+    }// fin while
+    system("PAUSE");
+    return EXIT_SUCCESS;
+
+}
