@@ -65,22 +65,34 @@ int main(int argc, char**argv){
 
         switch (touche) {
         case 75 : { // Appui sur la flèche gauche
+							if(col==1){
+							col=2;
+												}
             T[ row  ][ col-1 ] = 1;
             T[ row  ][ col ] = ' ';
             col--; // source de bug en cas de dépassement
             } break;
         case 77 : { // Appui sur la flèche droite
+							if(col==19){
+							col=18;
+												}
             T[ row  ][ col+1 ] = 1;
             T[ row  ][ col ] = ' ';
             col ++; // source de bug en cas de dépassement
            }break;
 
         case 72 : { //Appui sur la flèche haut
+							if(row==1){
+							row=2;
+												}
             T[ row - 1  ][ col ] = 1;
             T[ row  ][ col ] = ' ';
             row--;// source de bug en cas de dépassement
             } break;
         case 80 :{ //Appui sur la flèche du bas
+							if(row==9){
+							row=8;
+												}
             T[ row + 1  ][ col ] = 1;
             T[ row  ][ col ] = ' ';
             row++;// source de bug en cas de dépassement
