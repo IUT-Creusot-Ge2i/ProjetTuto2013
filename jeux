@@ -65,7 +65,7 @@ int main(int argc, char**argv){
 
         switch (touche) {
         case 75 : { // Appui sur la flèche gauche
-							if(col==1){
+							if(col==1){//Si on arrive sur un mur à gauche
 							col=2;
 												}
             T[ row  ][ col-1 ] = 1;
@@ -73,7 +73,7 @@ int main(int argc, char**argv){
             col--; // source de bug en cas de dépassement
             } break;
         case 77 : { // Appui sur la flèche droite
-							if(col==19){
+							if(col==19){ //Si on arrive sur un mur à droite
 							col=18;
 												}
             T[ row  ][ col+1 ] = 1;
@@ -82,7 +82,7 @@ int main(int argc, char**argv){
            }break;
 
         case 72 : { //Appui sur la flèche haut
-							if(row==1){
+							if(row==1){//Si on arrive sur un mur en haut
 							row=2;
 												}
             T[ row - 1  ][ col ] = 1;
@@ -90,7 +90,7 @@ int main(int argc, char**argv){
             row--;// source de bug en cas de dépassement
             } break;
         case 80 :{ //Appui sur la flèche du bas
-							if(row==9){
+							if(row==9){//Si on arrive sur un mur en bas
 							row=8;
 												}
             T[ row + 1  ][ col ] = 1;
