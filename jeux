@@ -25,11 +25,27 @@ int main(int argc, char**argv){
     //allocation statique d'une matrice de caractères
     char T[NROW][NCOL];
 
-    //on remplit avec 'O' partout
+    //on remplit avec ' ' partout
     //une instruction par niveau de boucle --> pas besoin de { }
     for (int i=0; i<NROW; i++)
         for (int j=0; j<NCOL; j++)
-            T[i][j] ='O';
+            T[i][j] =' ';
+
+
+    for (int i=0; i<NROW; i++)
+            T[i][0] ='X';
+
+		for (int i=0; i<NROW; i++)
+            T[i][20] ='X';
+
+		for (int i=0; i<NCOL; i++)
+            T[0][i] ='X';
+
+		for (int i=0; i<NCOL; i++)
+            T[10][i] ='X';
+
+    //On met des croix sur les côtés
+
 
     //initialisation position et valeur dans le tableau
     int row = 5, col=10;
@@ -50,23 +66,23 @@ int main(int argc, char**argv){
         switch (touche) {
         case 75 : { // Appui sur la flèche gauche
             T[ row  ][ col-1 ] = 1;
-            T[ row  ][ col ] = 'O';
+            T[ row  ][ col ] = ' ';
             col--; // source de bug en cas de dépassement
             } break;
         case 77 : { // Appui sur la flèche droite
             T[ row  ][ col+1 ] = 1;
-            T[ row  ][ col ] = 'O';
+            T[ row  ][ col ] = ' ';
             col ++; // source de bug en cas de dépassement
            }break;
 
         case 72 : { //Appui sur la flèche haut
             T[ row - 1  ][ col ] = 1;
-            T[ row  ][ col ] = 'O';
+            T[ row  ][ col ] = ' ';
             row--;// source de bug en cas de dépassement
             } break;
         case 80 :{ //Appui sur la flèche du bas
             T[ row + 1  ][ col ] = 1;
-            T[ row  ][ col ] = 'O';
+            T[ row  ][ col ] = ' ';
             row++;// source de bug en cas de dépassement
             }break;
 
