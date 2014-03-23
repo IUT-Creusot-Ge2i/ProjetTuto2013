@@ -81,60 +81,60 @@ int main(int argc, char**argv){
         switch (touche) {
 
         case 75 : { // Appui sur la flèche gauche
-							if(col==1){//Si on arrive sur un mur à gauche
-							col=2;
-												}
+		if(col==1){//Si on arrive sur un mur à gauche
+		col=2;
+		}
 
-							if(col==obstacle1_colonne+1 && row==obstacle1_ligne){//Si on arrive sur l'obstacle
-								col=col+1;
-							}
+		if(col==obstacle1_colonne+1 && row==obstacle1_ligne){//Si on arrive sur l'obstacle
+		col=col+1;
+		}
 
-            T[ row  ][ col-1 ] = 1;
-            T[ row  ][ col ] = ' ';
-            col--; // source de bug en cas de dépassement
-            } break;
+        	T[ row  ][ col-1 ] = 1;
+        	T[ row  ][ col ] = ' ';
+        	col--; // source de bug en cas de dépassement
+        	} break;
 
         case 77 : { // Appui sur la flèche droite
-							if(col==19){ //Si on arrive sur un mur à droite
-							col=18;
-												}
+		if(col==19){ //Si on arrive sur un mur à droite
+		col=18;
+		}
 
-							if(col==obstacle1_colonne-1 && row==obstacle1_ligne){//Si on arrive sur l'obstacle
-								col=col-1;
-							}
+		if(col==obstacle1_colonne-1 && row==obstacle1_ligne){//Si on arrive sur l'obstacle
+		col=col-1;
+		}
 
-            T[ row  ][ col+1 ] = 1;
-            T[ row  ][ col ] = ' ';
-            col ++; // source de bug en cas de dépassement
-           }break;
+        	T[ row  ][ col+1 ] = 1;
+        	T[ row  ][ col ] = ' ';
+            	col ++; // source de bug en cas de dépassement
+           	}break;
 
         case 72 : { //Appui sur la flèche haut
-							if(row==1){//Si on arrive sur un mur en haut
-							row=2;
-												}
+		if(row==1){//Si on arrive sur un mur en haut
+		row=2;
+		}
 
-							if(col==obstacle1_colonne && row==obstacle1_ligne+1){//Si on arrive sur l'obstacle
-								row=row+1;
-							}
+		if(col==obstacle1_colonne && row==obstacle1_ligne+1){//Si on arrive sur l'obstacle
+		row=row+1;
+		}
 
-            T[ row - 1  ][ col ] = 1;
-            T[ row  ][ col ] = ' ';
-            row--;// source de bug en cas de dépassement
-            } break;
+            	T[ row - 1  ][ col ] = 1;
+            	T[ row  ][ col ] = ' ';
+            	row--;// source de bug en cas de dépassement
+            	} break;
 
         case 80 :{ //Appui sur la flèche du bas
-							if(row==9){//Si on arrive sur un mur en bas
-							row=8;
-												}
+		if(row==9){//Si on arrive sur un mur en bas
+		row=8;
+		}
 
-							if(col==obstacle1_colonne && row==obstacle1_ligne-1){//Si on arrive sur l'obstacle
-								row=row-1;
-							}
+		if(col==obstacle1_colonne && row==obstacle1_ligne-1){//Si on arrive sur l'obstacle
+		row=row-1;
+		}
 
-            T[ row + 1  ][ col ] = 1;
-            T[ row  ][ col ] = ' ';
-            row++;// source de bug en cas de dépassement
-            }break;
+            	T[ row + 1  ][ col ] = 1;
+            	T[ row  ][ col ] = ' ';
+            	row++;// source de bug en cas de dépassement
+            	}break;
 
         }// fin switch
 
