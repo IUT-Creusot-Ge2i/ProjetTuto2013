@@ -67,7 +67,7 @@ int main(int argc, char**argv){
     Affiche (T);
 
     //on récupère la valeur unicode de la touche pressée tant qu'on n'apppuie pas sur ENTREE
-    int touche = -1;
+    int touche = - 1;
     while (touche != 13)    {
 
         touche = getch();
@@ -79,12 +79,13 @@ int main(int argc, char**argv){
 
         case 75 : { // Appui sur la flèche gauche
 		if(col == 1){//Si on arrive sur un mur à gauche
-		col = 2;
+		break;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col == obstacle_colonne[i]+1 && row == obstacle_ligne[i]){//Si on arrive sur un obstacle
-		col = col+1;
+		if(col == obstacle_colonne[i]+1 && row == obstacle_ligne[i] ){//Si on arrive sur un obstacle
+		//col = col + 1;
+		goto obstacle;
 		}
 		}
 
@@ -95,12 +96,13 @@ int main(int argc, char**argv){
 
         case 77 : { // Appui sur la flèche droite
 		if(col == 19){ //Si on arrive sur un mur à droite
-		col = 18;
+		break;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col == obstacle_colonne[i]-1 && row == obstacle_ligne[i]){//Si on arrive sur un obstacle
-		col = col-1;
+		if(col == obstacle_colonne[i]-1 && row == obstacle_ligne[i] ){//Si on arrive sur un obstacle
+		//col = col - 1;
+		goto obstacle;
 		}
 		}
 
@@ -111,12 +113,13 @@ int main(int argc, char**argv){
 
         case 72 : { //Appui sur la flèche haut
 		if(row == 1){//Si on arrive sur un mur en haut
-		row = 2;
+		break;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]+1){//Si on arrive sur un obstacle
-		row = row+1;
+		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]+1 ){//Si on arrive sur un obstacle
+		//row = row + 1;
+		goto obstacle;
 		}
 		}
 
@@ -127,12 +130,13 @@ int main(int argc, char**argv){
 
         case 80 :{ //Appui sur la flèche du bas
 		if(row == 9){//Si on arrive sur un mur en bas
-		row = 8;
+		break;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]-1){//Si on arrive sur un obstacle
-		row = row-1;
+		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]-1 ){//Si on arrive sur un obstacle
+		//row = row - 1;
+		goto obstacle;
 		}
 		}
 
@@ -142,6 +146,7 @@ int main(int argc, char**argv){
             	}break;
 
         }// fin switch
+        obstacle:
 
         Affiche(T);
     }// fin while
