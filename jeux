@@ -34,18 +34,15 @@ int main(int argc, char**argv){
         for (int j=0; j<NCOL; j++)
             T[i][j] =' ';
 
-
 		srand(time(NULL));
-		int	obstacle1_ligne = 0;
-		obstacle1_ligne = rand()%(10-1) +1;
-		//On génère la ligne de l'obstacle aléatoirement
+		int obstacle_colonne[5];
+		int obstacle_ligne[5];
+		for (int i=0; i<5; i++){
+			obstacle_colonne[i] = rand()%(20 - 1) + 1;
+			obstacle_ligne[i]   = rand()%(10 - 1) + 1;
+			T[obstacle_ligne[i]][obstacle_colonne[i]] ='O';
+		}
 
-		int obstacle1_colonne = 0;
-		obstacle1_colonne = rand()%(20-1) +1;
-		//On génère la colonne de l'obstacle aléatoirement
-
-		T[obstacle1_ligne][obstacle1_colonne] ='O';
-		//On affiche l'obstacle par un 'O'
 
     for (int i=0; i<NROW; i++)
             T[i][0] ='X';
@@ -85,8 +82,10 @@ int main(int argc, char**argv){
 		col=2;
 		}
 
-		if(col==obstacle1_colonne+1 && row==obstacle1_ligne){//Si on arrive sur l'obstacle
+		for (int i=0; i<5; i++){
+		if(col==obstacle_colonne[i]+1 && row==obstacle_ligne[i]){//Si on arrive sur un obstacle
 		col=col+1;
+		}
 		}
 
         	T[ row  ][ col-1 ] = 1;
@@ -99,8 +98,10 @@ int main(int argc, char**argv){
 		col=18;
 		}
 
-		if(col==obstacle1_colonne-1 && row==obstacle1_ligne){//Si on arrive sur l'obstacle
+		for (int i=0; i<5; i++){
+		if(col==obstacle_colonne[i]-1 && row==obstacle_ligne[i]){//Si on arrive sur un obstacle
 		col=col-1;
+		}
 		}
 
         	T[ row  ][ col+1 ] = 1;
@@ -113,8 +114,10 @@ int main(int argc, char**argv){
 		row=2;
 		}
 
-		if(col==obstacle1_colonne && row==obstacle1_ligne+1){//Si on arrive sur l'obstacle
+		for (int i=0; i<5; i++){
+		if(col==obstacle_colonne[i] && row==obstacle_ligne[i]+1){//Si on arrive sur un obstacle
 		row=row+1;
+		}
 		}
 
             	T[ row - 1  ][ col ] = 1;
@@ -127,8 +130,10 @@ int main(int argc, char**argv){
 		row=8;
 		}
 
-		if(col==obstacle1_colonne && row==obstacle1_ligne-1){//Si on arrive sur l'obstacle
+		for (int i=0; i<5; i++){
+		if(col==obstacle_colonne[i] && row==obstacle_ligne[i]-1){//Si on arrive sur un obstacle
 		row=row-1;
+		}
 		}
 
             	T[ row + 1  ][ col ] = 1;
