@@ -78,13 +78,13 @@ int main(int argc, char**argv){
         switch (touche) {
 
         case 75 : { // Appui sur la flèche gauche
-		if(col==1){//Si on arrive sur un mur à gauche
-		col=2;
+		if(col == 1){//Si on arrive sur un mur à gauche
+		col = 2;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col==obstacle_colonne[i]+1 && row==obstacle_ligne[i]){//Si on arrive sur un obstacle
-		col=col+1;
+		if(col == obstacle_colonne[i]+1 && row == obstacle_ligne[i]){//Si on arrive sur un obstacle
+		col = col+1;
 		}
 		}
 
@@ -94,13 +94,13 @@ int main(int argc, char**argv){
         	} break;
 
         case 77 : { // Appui sur la flèche droite
-		if(col==19){ //Si on arrive sur un mur à droite
-		col=18;
+		if(col == 19){ //Si on arrive sur un mur à droite
+		col = 18;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col==obstacle_colonne[i]-1 && row==obstacle_ligne[i]){//Si on arrive sur un obstacle
-		col=col-1;
+		if(col == obstacle_colonne[i]-1 && row == obstacle_ligne[i]){//Si on arrive sur un obstacle
+		col = col-1;
 		}
 		}
 
@@ -110,13 +110,13 @@ int main(int argc, char**argv){
            	}break;
 
         case 72 : { //Appui sur la flèche haut
-		if(row==1){//Si on arrive sur un mur en haut
-		row=2;
+		if(row == 1){//Si on arrive sur un mur en haut
+		row = 2;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col==obstacle_colonne[i] && row==obstacle_ligne[i]+1){//Si on arrive sur un obstacle
-		row=row+1;
+		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]+1){//Si on arrive sur un obstacle
+		row = row+1;
 		}
 		}
 
@@ -126,13 +126,13 @@ int main(int argc, char**argv){
             	} break;
 
         case 80 :{ //Appui sur la flèche du bas
-		if(row==9){//Si on arrive sur un mur en bas
-		row=8;
+		if(row == 9){//Si on arrive sur un mur en bas
+		row = 8;
 		}
 
 		for (int i=0; i<5; i++){
-		if(col==obstacle_colonne[i] && row==obstacle_ligne[i]-1){//Si on arrive sur un obstacle
-		row=row-1;
+		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]-1){//Si on arrive sur un obstacle
+		row = row-1;
 		}
 		}
 
