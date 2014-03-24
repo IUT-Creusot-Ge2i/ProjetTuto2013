@@ -1,0 +1,49 @@
+#include <iostream>
+#include <windows.h>
+#include <cstdlib>
+#include <cstdio>
+#include <stdio.h>
+
+#ifndef MOUSE_HWHEELED
+#define MOUSE_HWHEELED 0x0008
+#endif
+using namespace std;
+
+int main()
+{
+LPPOINT point;
+int counter = 0;
+DWORD cNumRead, i,fdwMode, fdwSaveOldMode;
+INPUT_RECORD irInputBuffer[128];
+HANDLE stdHandle;
+stdHandle = GetStdHandle(STD_INPUT_HANDLE);
+MOUSE_EVENT_RECORD mer;
+
+
+
+while(counter++<1000)
+{
+buttonpress:
+ReadConsoleInput(stdHandle, irInputBuffer,128, &cNumRead);
+GetCursorPos(point);
+for(i=0; i<cNumRead; i++)
+{
+
+				if(irInputBuffer[i].EventType==MOUSE_EVENT)
+					        {
+            mer = irInputBuffer[i].Event.MouseEvent;
+
+
+            POINT point;
+							if (GetCursorPos(&point) && mer.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+								cout << "x: " << point.x << " y: " << point.y << "\n";
+						}
+
+       }
+
+    }
+}
+
+
+return 0;
+}
