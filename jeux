@@ -24,7 +24,6 @@ void Affiche(char T[][NCOL])
 int main(int argc, char**argv){
 
 
-
     //allocation statique d'une matrice de caractères
     char T[NROW][NCOL];
 
@@ -35,11 +34,12 @@ int main(int argc, char**argv){
             T[i][j] =' ';
 
 		srand(time(NULL));
-		int obstacle_colonne[5];
-		int obstacle_ligne[5];
-		for (int i=0; i<5; i++){
-			obstacle_colonne[i] = rand()%(20 - 1) + 1;
-			obstacle_ligne[i]   = rand()%(10 - 1) + 1;
+		int nb_obstacles = rand()%(16 - 1) + 1;//On génère aléatoirement le nb d'obstacles
+		int obstacle_colonne[ nb_obstacles ];
+		int obstacle_ligne[ nb_obstacles ];
+		for (int i=0; i< nb_obstacles; i++){
+			obstacle_colonne[i] = rand()%(20 - 1) + 1;//On génère aléatoirement les colonnes des obstacles
+			obstacle_ligne[i]   = rand()%(10 - 1) + 1;//On génère aléatoirement les lignes des obstacles
 			T[obstacle_ligne[i]][obstacle_colonne[i]] ='O';
 		}
 
@@ -82,7 +82,7 @@ int main(int argc, char**argv){
 		break;
 		}
 
-		for (int i=0; i<5; i++){
+		for (int i=0; i< nb_obstacles; i++){
 		if(col == obstacle_colonne[i]+1 && row == obstacle_ligne[i] ){//Si on arrive sur un obstacle
 		//col = col + 1;
 		goto obstacle;
@@ -99,7 +99,7 @@ int main(int argc, char**argv){
 		break;
 		}
 
-		for (int i=0; i<5; i++){
+		for (int i=0; i< nb_obstacles; i++){
 		if(col == obstacle_colonne[i]-1 && row == obstacle_ligne[i] ){//Si on arrive sur un obstacle
 		//col = col - 1;
 		goto obstacle;
@@ -116,7 +116,7 @@ int main(int argc, char**argv){
 		break;
 		}
 
-		for (int i=0; i<5; i++){
+		for (int i=0; i< nb_obstacles; i++){
 		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]+1 ){//Si on arrive sur un obstacle
 		//row = row + 1;
 		goto obstacle;
@@ -133,7 +133,7 @@ int main(int argc, char**argv){
 		break;
 		}
 
-		for (int i=0; i<5; i++){
+		for (int i=0; i< nb_obstacles; i++){
 		if(col == obstacle_colonne[i] && row == obstacle_ligne[i]-1 ){//Si on arrive sur un obstacle
 		//row = row - 1;
 		goto obstacle;
@@ -149,7 +149,10 @@ int main(int argc, char**argv){
         obstacle:
 
         Affiche(T);
+
+
     }// fin while
+
 
     system("PAUSE");
     return EXIT_SUCCESS;
