@@ -34,12 +34,14 @@ int main(int argc, char**argv){
             T[i][j] =' ';
 
 		srand(time(NULL));
-		int nb_obstacles = rand()%(16 - 1) + 1;//On génère aléatoirement le nb d'obstacles
+		int nb_obstacles = rand()%(16 - 1) + 1;//On génère aléatoirement le nb d'obstacles de 1 à 15
+		//int nb_obstacles = 30;
 		int obstacle_colonne[ nb_obstacles ];
 		int obstacle_ligne[ nb_obstacles ];
+
 		for (int i=0; i< nb_obstacles; i++){
-			obstacle_colonne[i] = rand()%(20 - 1) + 1;//On génère aléatoirement les colonnes des obstacles
-			obstacle_ligne[i]   = rand()%(10 - 1) + 1;//On génère aléatoirement les lignes des obstacles
+			obstacle_colonne[i] = (rand()%(10 - 1) + 1)*2;//On génère aléatoirement les colonnes des obstacles sur les colonnes paires
+			obstacle_ligne[i]   = (rand()%(5 - 1) + 1)*2;//On génère aléatoirement les lignes des obstacles sur les lignes paires
 			T[obstacle_ligne[i]][obstacle_colonne[i]] ='O';
 		}
 
