@@ -1,0 +1,113 @@
+#include <iostream>
+#include <cstdlib>
+#include <conio.h>
+#include <time.h>
+
+using namespace std;
+
+#define NROW 11
+#define NCOL 21
+
+void Affiche(char T[][NCOL])
+{
+    //on efface la console
+    system("cls");
+
+    //on affiche tout le tableau
+    for(int x = 0; x < NROW; x++){
+        for(int y = 0; y < NCOL; y++)
+            cout << T[x][y];
+        cout << endl;
+    }
+}
+
+bool LaCaseEstAccessible (int i, int j, char T[][NCOL]) {
+   return (
+               i>0 && i<NROW-1  // tout sauf premiere et derniere ligne
+                   &&
+               j>0 && j<NCOL-1  // tout sauf premiere et derniere colonne
+                   &&
+               T[i][j] == ' '); // et enfin, case vide
+}
+
+int main(int argc, char**argv){
+
+
+    //allocation statique d'une matrice de caractères
+    char T[NROW][NCOL];
+
+    //on remplit avec ' ' partout
+    //une instruction par niveau de boucle --> pas besoin de { }
+    for (int i=0; i<NROW; i++)
+        for (int j=0; j<NCOL; j++)
+            T[i][j] =' ';
+
+
+				int nb_obstacles = rand()%(15) + 1;//On génère aléatoirement le nb d'obstacles de 1 à 15
+
+				for (int i=0; i< nb_obstacles; i++)
+        T[ rand()%(NROW-1) + 1 ][ rand()%(NCOL-1) + 1 ] = 'O';
+
+
+    for (int i=0; i<NROW; i++)    {
+        T[i][0] ='X'; T[i][NCOL-1] ='X';
+    }
+
+    for (int i=0; i<NCOL; i++)    {
+        T[0][i] ='X'; T[NROW-1][i] ='X';
+    }
+
+    //On met des croix sur les côtés
+
+
+    //initialisation position et valeur dans le tableau
+    int row = 5, col=10;
+    T[row][col] = 1;
+
+    //on affiche une première fois
+    Affiche (T);
+
+    //on récupère la valeur unicode de la touche pressée tant qu'on n'apppuie pas sur ENTREE
+    int touche = - 1;
+     int rowcible = row, colcible = col; //index de la case ciblée dans le tableau
+
+    while (touche != 13)    {
+
+        touche = getch();
+
+        //on utilise le switch juste pour déterminer quelle sera notre case cible
+        switch (touche) {
+            // Appui sur la flèche gauche ->on diminue d'une colonne
+            case 75 : { colcible = col-1; } break;
+            // Appui sur la flèche droite -> on augmente d'une colonne
+            case 77 : { colcible = col+1; } break;
+            //Appui sur la flèche haut -> on diminue d'une ligne
+            case 72 : { rowcible = row-1; } break;
+            //Appui sur la flèche du bas -> on augmente d'une ligne
+            case 80 : { rowcible = row+1; } break;
+        }// fin switch
+
+
+       //si la case est accessible on modifie la case courante, la case cible et on redessine; sinon on ne fait rien
+       if ( LaCaseEstAccessible(rowcible, colcible, T) == true ){
+
+            //on efface la case où on se trouve
+            T[row][col] = ' ';
+
+            //on met 1 dans la case cible
+            T[colcible][rowcible] = 1;
+
+            //on met à jour notre position
+            col = colcible;
+            row = rowcible;
+
+            //on redessine
+            Affiche(T);
+       }
+    }// fin while
+
+
+    system("PAUSE");
+    return EXIT_SUCCESS;
+
+}
