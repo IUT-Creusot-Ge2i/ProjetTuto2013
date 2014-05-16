@@ -42,7 +42,7 @@ int main(int argc, char**argv){
         for (int j=0; j<NCOL; j++)
             T[i][j] =' ';
 
-
+        srand(time(NULL));
 				int nb_obstacles = rand()%(15) + 1;//On génère aléatoirement le nb d'obstacles de 1 à 15
 
 				for (int i=0; i< nb_obstacles; i++)
@@ -86,6 +86,11 @@ int main(int argc, char**argv){
             //Appui sur la flèche du bas -> on augmente d'une ligne
             case 80 : { rowcible = row+1; } break;
         }// fin switch
+         if ( LaCaseEstAccessible(rowcible, colcible, T) == false ){
+             colcible=col;
+             rowcible=row;
+
+       }
 
 
        //si la case est accessible on modifie la case courante, la case cible et on redessine; sinon on ne fait rien
@@ -95,7 +100,7 @@ int main(int argc, char**argv){
             T[row][col] = ' ';
 
             //on met 1 dans la case cible
-            T[colcible][rowcible] = 1;
+            T[rowcible][colcible] = 1;
 
             //on met à jour notre position
             col = colcible;
@@ -104,6 +109,7 @@ int main(int argc, char**argv){
             //on redessine
             Affiche(T);
        }
+
     }// fin while
 
 
