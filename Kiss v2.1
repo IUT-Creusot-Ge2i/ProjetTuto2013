@@ -28,6 +28,7 @@ bool LaCaseEstAccessible (int i, int j, char T[][NCOL]) {
                j>0 && j<NCOL-1  // tout sauf premiere et derniere colonne
                    &&
                T[i][j] == ' '); // et enfin, case vide
+
 }
 
 int main(int argc, char**argv){
@@ -69,6 +70,8 @@ int main(int argc, char**argv){
 
     //on récupère la valeur unicode de la touche pressée tant qu'on n'apppuie pas sur ENTREE
     int touche = - 1;
+		char direction2;
+		char Tir[NROW][NCOL];
 		int rowcible = row, colcible = col; //index de la case ciblée dans le tableau
 		char direction;
     while (touche != 13)    {
@@ -93,12 +96,75 @@ int main(int argc, char**argv){
             case 80 : { rowcible = row+1; }
             direction='V';
             break;
+
+            case 32 :
+
+    for(int x = 0; x < NROW; x++){
+        for(int y = 0; y < NCOL; y++)
+            Tir [x][y]= T[x][y];
+    }
+
+			if ( direction == '<' ){
+					for ( int i = col-1; i > 0; i-- ){
+						if ( LaCaseEstAccessible(row, i, Tir) == true ){
+					Tir[row][i] = '-';
+					Affiche(Tir);
+						 }
+
+						if ( LaCaseEstAccessible(row, i, Tir) == false ){
+							Tir[row][i] = T[row][i];
+						}
+
+					}
+       }
+
+			if ( direction == '>' ){
+				for ( int i = col+1; i < 20; i++ ){
+						if ( LaCaseEstAccessible(row, i, Tir) == true ){
+					Tir[row][i] = '-';
+					Affiche(Tir);
+						 }
+
+						if ( LaCaseEstAccessible(row, i, Tir) == false ){
+							Tir[row][i] = T[row][i];
+						}
+				}
+       }
+
+			if ( direction == '^' ){
+				for ( int i = row-1; i > 0; i-- ){
+						if ( LaCaseEstAccessible(i, col, Tir) == true ){
+					Tir[i][col] = '|';
+					Affiche(Tir);
+						 }
+
+						if ( LaCaseEstAccessible(i, col, Tir) == false ){
+							Tir[i][col] = T[i][col];
+						}
+				}
+       }
+
+			if ( direction == 'V' ){
+				for ( int i = row+1; i < 10; i++ ){
+						if ( LaCaseEstAccessible(i, col, Tir) == true ){
+					Tir[i][col] = '|';
+					Affiche(Tir);
+						 }
+
+						if ( LaCaseEstAccessible(i, col, Tir) == false ){
+							Tir[i][col] = T[i][col];
+						}
+				}
+       }
+       break;//fin case 32
         }// fin switch
+
+
          if ( LaCaseEstAccessible(rowcible, colcible, T) == false ){
              colcible=col;
              rowcible=row;
 
-       }
+						}
 
 
        //si la case est accessible on modifie la case courante, la case cible et on redessine; sinon on ne fait rien
@@ -117,6 +183,9 @@ int main(int argc, char**argv){
             //on redessine
             Affiche(T);
        }
+
+
+
 
     }// fin while
 
