@@ -97,64 +97,79 @@ int main(int argc, char**argv){
             direction='V';
             break;
 
-            case 32 :
-
+            case 32 ://Appui sur la touche espace -> on tire un projectile dans la direction qu'on regarde
+	int col_obstacle;
+	int row_obstacle;
     for(int x = 0; x < NROW; x++){
         for(int y = 0; y < NCOL; y++)
             Tir [x][y]= T[x][y];
     }
 
 			if ( direction == '<' ){
-					for ( int i = col-1; i > 0; i-- ){
-						if ( LaCaseEstAccessible(row, i, Tir) == true ){
-					Tir[row][i] = '-';
-					Affiche(Tir);
-						 }
-
+				col_obstacle = 0;
+					for ( int i = col - 1; i > col_obstacle; i-- ){
 						if ( LaCaseEstAccessible(row, i, Tir) == false ){
-							Tir[row][i] = T[row][i];
+							col_obstacle = i;
 						}
+					}//On détermine la colonne de l'obstacle le plus proche sur la gauche
 
-					}
+					for ( int i = col - 1; i > col_obstacle; i-- ){
+									Tir[row][i] = '-';
+									Affiche(Tir);
+									Tir[row][i] = T[row][i];
+
+					}//On envoie un '-' jusqu'à l'obstacle
        }
 
 			if ( direction == '>' ){
-				for ( int i = col+1; i < 20; i++ ){
-						if ( LaCaseEstAccessible(row, i, Tir) == true ){
-					Tir[row][i] = '-';
-					Affiche(Tir);
-						 }
-
+					col_obstacle = NCOL;
+					for ( int i = col + 1; i < col_obstacle; i++ ){
 						if ( LaCaseEstAccessible(row, i, Tir) == false ){
-							Tir[row][i] = T[row][i];
+							col_obstacle = i;
+
 						}
-				}
+					}//On détermine la colonne de l'obstacle le plus proche sur la droite
+
+					for ( int i = col + 1; i < col_obstacle; i++ ){
+									Tir[row][i] = '-';
+									Affiche(Tir);
+									Tir[row][i] = T[row][i];
+
+					}//On envoie un '-' jusqu'à l'obstacle
        }
 
 			if ( direction == '^' ){
-				for ( int i = row-1; i > 0; i-- ){
-						if ( LaCaseEstAccessible(i, col, Tir) == true ){
-					Tir[i][col] = '|';
-					Affiche(Tir);
-						 }
-
+				row_obstacle = 0;
+					for ( int i = row - 1; i > row_obstacle; i-- ){
 						if ( LaCaseEstAccessible(i, col, Tir) == false ){
-							Tir[i][col] = T[i][col];
+							row_obstacle = i;
+
 						}
-				}
+					}//On détermine la colonne de l'obstacle le plus proche sur la droite
+
+					for ( int i = row - 1; i > row_obstacle; i-- ){
+									Tir[i][col] = '|';
+									Affiche(Tir);
+									Tir[i][col] = T[i][col];
+
+					}//On envoie un '-' jusqu'à l'obstacle
        }
 
 			if ( direction == 'V' ){
-				for ( int i = row+1; i < 10; i++ ){
-						if ( LaCaseEstAccessible(i, col, Tir) == true ){
-					Tir[i][col] = '|';
-					Affiche(Tir);
-						 }
-
+				row_obstacle = NROW;
+					for ( int i = row + 1; i < row_obstacle; i++ ){
 						if ( LaCaseEstAccessible(i, col, Tir) == false ){
-							Tir[i][col] = T[i][col];
+							row_obstacle = i;
+
 						}
-				}
+					}//On détermine la colonne de l'obstacle le plus proche sur la droite
+
+					for ( int i = row + 1; i < row_obstacle; i++ ){
+									Tir[i][col] = '|';
+									Affiche(Tir);
+									Tir[i][col] = T[i][col];
+
+					}//On envoie un '-' jusqu'à l'obstacle
        }
        break;//fin case 32
         }// fin switch
