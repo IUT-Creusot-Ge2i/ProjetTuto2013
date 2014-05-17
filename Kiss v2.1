@@ -1,0 +1,211 @@
+#include <iostream>
+#include <cstdlib>
+#include <conio.h>
+#include <time.h>
+
+using namespace std;
+
+#define NROW 11
+#define NCOL 21
+
+void Affiche(char T[][NCOL])
+{
+    //on efface la console
+    system("cls");
+
+    //on affiche tout le tableau
+    for(int x = 0; x < NROW; x++){
+        for(int y = 0; y < NCOL; y++)
+            cout << T[x][y];
+        cout << endl;
+    }
+}
+
+bool LaCaseEstAccessible (int i, int j, char T[][NCOL]) {
+   return (
+               i>0 && i<NROW-1  // tout sauf premiere et derniere ligne
+                   &&
+               j>0 && j<NCOL-1  // tout sauf premiere et derniere colonne
+                   &&
+               T[i][j] == ' '); // et enfin, case vide
+
+}
+
+int main(int argc, char**argv){
+
+
+    //allocation statique d'une matrice de caractères
+    char T[NROW][NCOL];
+
+    //on remplit avec ' ' partout
+    //une instruction par niveau de boucle --> pas besoin de { }
+    for (int i=0; i<NROW; i++)
+        for (int j=0; j<NCOL; j++)
+            T[i][j] =' ';
+
+        srand(time(NULL));
+				int nb_obstacles = rand()%(15) + 1;//On génère aléatoirement le nb d'obstacles de 1 à 15
+
+				for (int i=0; i< nb_obstacles; i++)
+        T[ rand()%(NROW-1) + 1 ][ rand()%(NCOL-1) + 1 ] = 'O';
+
+
+    for (int i=0; i<NROW; i++)    {
+        T[i][0] ='X'; T[i][NCOL-1] ='X';
+    }
+
+    for (int i=0; i<NCOL; i++)    {
+        T[0][i] ='X'; T[NROW-1][i] ='X';
+    }
+
+    //On met des croix sur les côtés
+
+
+    //initialisation position et valeur dans le tableau
+    int row = 2, col=4;
+    T[row][col] = 1;
+
+    //on affiche une première fois
+    Affiche (T);
+
+    //on récupère la valeur unicode de la touche pressée tant qu'on n'apppuie pas sur ENTREE
+    int touche = - 1;
+		char direction2;
+		char Tir[NROW][NCOL];
+		int rowcible = row, colcible = col; //index de la case ciblée dans le tableau
+		char direction;
+    while (touche != 13)    {
+
+        touche = getch();
+
+        //on utilise le switch juste pour déterminer quelle sera notre case cible
+        switch (touche) {
+            // Appui sur la flèche gauche -> on diminue d'une colonne
+            case 75 : { colcible = col-1; }
+            direction='<';
+            break;
+            // Appui sur la flèche droite -> on augmente d'une colonne
+            case 77 : { colcible = col+1; }
+            direction='>';
+            break;
+            //Appui sur la flèche haut -> on diminue d'une ligne
+            case 72 : { rowcible = row-1; }
+            direction='^';
+            break;
+            //Appui sur la flèche du bas -> on augmente d'une ligne
+            case 80 : { rowcible = row+1; }
+            direction='V';
+            break;
+
+            case 32 ://Appui sur la touche espace -> on tire un projectile dans la direction qu'on regarde
+	int col_obstacle;
+	int row_obstacle;
+    for(int x = 0; x < NROW; x++){
+        for(int y = 0; y < NCOL; y++)
+            Tir [x][y]= T[x][y];
+    }
+
+			if ( direction == '<' ){
+				col_obstacle = 0;
+					for ( int i = col - 1; i > col_obstacle; i-- ){
+						if ( LaCaseEstAccessible(row, i, Tir) == false ){
+							col_obstacle = i;
+						}
+					}//On détermine la colonne de l'obstacle le plus proche sur la gauche
+
+					for ( int i = col - 1; i > col_obstacle; i-- ){
+									Tir[row][i] = '-';
+									Affiche(Tir);
+									Tir[row][i] = T[row][i];
+
+					}//On envoie un '-' jusqu'à l'obstacle
+       }
+
+			if ( direction == '>' ){
+					col_obstacle = NCOL;
+					for ( int i = col + 1; i < col_obstacle; i++ ){
+						if ( LaCaseEstAccessible(row, i, Tir) == false ){
+							col_obstacle = i;
+
+						}
+					}//On détermine la colonne de l'obstacle le plus proche sur la droite
+
+					for ( int i = col + 1; i < col_obstacle; i++ ){
+									Tir[row][i] = '-';
+									Affiche(Tir);
+									Tir[row][i] = T[row][i];
+
+					}//On envoie un '-' jusqu'à l'obstacle
+       }
+
+			if ( direction == '^' ){
+				row_obstacle = 0;
+					for ( int i = row - 1; i > row_obstacle; i-- ){
+						if ( LaCaseEstAccessible(i, col, Tir) == false ){
+							row_obstacle = i;
+
+						}
+					}//On détermine la colonne de l'obstacle le plus proche sur la droite
+
+					for ( int i = row - 1; i > row_obstacle; i-- ){
+									Tir[i][col] = '|';
+									Affiche(Tir);
+									Tir[i][col] = T[i][col];
+
+					}//On envoie un '-' jusqu'à l'obstacle
+       }
+
+			if ( direction == 'V' ){
+				row_obstacle = NROW;
+					for ( int i = row + 1; i < row_obstacle; i++ ){
+						if ( LaCaseEstAccessible(i, col, Tir) == false ){
+							row_obstacle = i;
+
+						}
+					}//On détermine la colonne de l'obstacle le plus proche sur la droite
+
+					for ( int i = row + 1; i < row_obstacle; i++ ){
+									Tir[i][col] = '|';
+									Affiche(Tir);
+									Tir[i][col] = T[i][col];
+
+					}//On envoie un '-' jusqu'à l'obstacle
+       }
+       break;//fin case 32
+        }// fin switch
+
+
+         if ( LaCaseEstAccessible(rowcible, colcible, T) == false ){
+             colcible=col;
+             rowcible=row;
+
+						}
+
+
+       //si la case est accessible on modifie la case courante, la case cible et on redessine; sinon on ne fait rien
+       if ( LaCaseEstAccessible(rowcible, colcible, T) == true ){
+
+            //on efface la case où on se trouve
+            T[row][col] = ' ';
+
+            //on met 1 dans la case cible
+            T[rowcible][colcible] = direction;
+
+            //on met à jour notre position
+            col = colcible;
+            row = rowcible;
+
+            //on redessine
+            Affiche(T);
+       }
+
+
+
+
+    }// fin while
+
+
+    system("PAUSE");
+    return EXIT_SUCCESS;
+
+}
